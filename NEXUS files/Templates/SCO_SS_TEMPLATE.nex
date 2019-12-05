@@ -1,0 +1,49 @@
+﻿[Matrix from Engel et al. 2013, based on Engel & Grimaldi 2007]
+#NEXUS
+begin data;
+	dimensions ntax=16 nchar=27;
+	format datatype=standard missing=?;
+
+
+			       [123456789012345678901234567]
+MATRIX
+Plumariidae 			00(0123)0001(01)(01)(12)0000010100(01)001000     [for this taxon i changed the coding for character 9 and 21 from (0123) to (01) as 9 and 21 are binary characters]
+Boreobythus_turonius    	30100?0212????0100100001110 
+Clystopsenella_longiventris     100011020010010100011111100 
+Eobythus_patriciae              2200000202222?1?11010100100 
+Libanobythus_milkii             3000001?12?11?0100000000111 
+Pristapenesia_inopinata         2211001201211?1010101000100 
+Pristapenesia_primaeva          2211001202211?1010100000100 
+Pristapenesia_stricta           2211001202211?1010100000100 
+Scolebythus_madecassus          001011110010000100001011100 
+Ycaploca_evansi                 111100100001100100001001100 
+Ycaploca_fijianus               111110100001100100001001100 
+Zapenesia_libanica              320010020000000010110000101 
+Uliobythus_terpsichore          3200000200?11?0010111000101 
+Necrobythus_pulcher             3200000202011?0010100000101 
+Sphakelobythus_limnopous        3200000200011?0010100000101 
+Ectenobythus_iberiensis     	3200000210011?0010101000111 
+;
+END;
+
+BEGIN MRBAYES;
+	set autoclose=yes nowarn=yes;
+
+	lset coding=variable rates=gamma;
+
+
+
+[INSERT PARTITIONS HERE]
+
+
+
+
+	unlink shape=(all);
+	prset applyto=(all) ratepr=variable;
+
+	outgroup Plumariidae;
+
+  mcmcp ngen=5000000 samplefreq=100 nruns=8 nchains=8 burninfrac=0.25 append=no;
+
+  ss burninss=-1 nsteps=40 FromPrior=yes;
+END;

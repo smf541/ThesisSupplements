@@ -1,0 +1,63 @@
+﻿#NEXUS
+begin taxa;
+	dimensions ntax=25;
+	taxlabels
+		Dromaeosauridae
+		AvesAnas_platyrhynchos
+		AvesChauna_torquata
+		AvesGallus_gallus
+		AvesCrax_pauxi
+		AvesCrypturellus_undulatus
+		Lithornis
+		Limenavis_patagonica
+		Iaceornis_marshii
+		Ichthyornis
+		Hesperornis_regalis
+		Baptornis_adventus
+		Songlingornis_linghensis
+		Patagopteryx_deferrariisi
+		Cathayornis_yandica
+		Concornis_lacustris
+		Neuquenornis_volans
+		Gobipteryx_minuta
+		Vorona_berivotrensis
+		Apsaravis_ukhaana
+		Confuciusornis_sanctus
+		Archaeopteryx_lithographica
+		Yixianornis_grabaui
+		Yanornis_martini
+		Sapeornis
+		;
+end;
+begin trees;
+	translate
+		1	Dromaeosauridae,
+		2	AvesAnas_platyrhynchos,
+		3	AvesChauna_torquata,
+		4	AvesGallus_gallus,
+		5	AvesCrax_pauxi,
+		6	AvesCrypturellus_undulatus,
+		7	Lithornis,
+		8	Limenavis_patagonica,
+		9	Iaceornis_marshii,
+		10	Ichthyornis,
+		11	Hesperornis_regalis,
+		12	Baptornis_adventus,
+		13	Songlingornis_linghensis,
+		14	Patagopteryx_deferrariisi,
+		15	Cathayornis_yandica,
+		16	Concornis_lacustris,
+		17	Neuquenornis_volans,
+		18	Gobipteryx_minuta,
+		19	Vorona_berivotrensis,
+		20	Apsaravis_ukhaana,
+		21	Confuciusornis_sanctus,
+		22	Archaeopteryx_lithographica,
+		23	Yixianornis_grabaui,
+		24	Yanornis_martini,
+		25	Sapeornis
+		;
+
+	tree ClarkeMiddleton2008 = [&U] 
+(1,(22,(25,(21,((15,(16,(17,18))),(19,(14,(24,(23,(13,(20,((11,12),(10,(9,(8,(7,(6,((2,3),(4,5)))))))))))))))))));
+end;

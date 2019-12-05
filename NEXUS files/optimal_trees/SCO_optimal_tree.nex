@@ -1,0 +1,46 @@
+﻿#NEXUS
+
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 16;
+	TAXLABELS
+	Plumariidae
+	Boreobythus_turonius
+	Clystopsenella_longiventris
+	Eobythus_patriciae
+	Libanobythus_milkii
+	Pristapenesia_inopinata
+	Pristapenesia_primaeva
+	Pristapenesia_stricta
+	Scolebythus_madecassus
+	Ycaploca_evansi
+	Ycaploca_fijianus
+	Zapenesia_libanica
+	Uliobythus_terpsichore
+	Necrobythus_pulcher
+	Sphakelobythus_limnopous
+	Ectenobythus_iberiensis
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+	1	Plumariidae
+	2	Boreobythus_turonius
+	3	Clystopsenella_longiventris
+	4	Eobythus_patriciae
+	5	Libanobythus_milkii
+	6	Pristapenesia_inopinata
+	7	Pristapenesia_primaeva
+	8	Pristapenesia_stricta
+	9	Scolebythus_madecassus
+	10	Ycaploca_evansi
+	11	Ycaploca_fijianus
+	12	Zapenesia_libanica
+	13	Uliobythus_terpsichore
+	14	Necrobythus_pulcher
+	15	Sphakelobythus_limnopous
+	16	Ectenobythus_iberiensis
+	;
+	tree tnt_1 = [&U] 
+(1,(((2,(5,(16,(14,((4,(8,(6,7))),(15,(12,13))))))),(10,11)),(3,9)));
+END;
