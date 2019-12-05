@@ -26,7 +26,7 @@ setwd(paste0(rootDir, '/', dataSet))
 
 #initialise tibble for logMLs
 bfMat <- as_tibble(matrix(data=NA,nrow=length(list.files('StartingTrees',pattern='*.nex'))*100,ncol=13))
-colnames(bfMat) <- c('file','longBranch', "avgLength", 'BF1','BF2','BF3','BF4','BF5','BF6','BF7','BF8','BayesFactor','se')
+colnames(bfMat) <- c('file','longBranch', "lengthVar", 'BF1','BF2','BF3','BF4','BF5','BF6','BF7','BF8','BayesFactor','se')
 bfMat$file <- str_sort(list.files('MrBayes', pattern = '.lstat'), numeric=TRUE)
 
 #read in lstat file and populate amMat with ML values, indexing by the filename
@@ -44,6 +44,7 @@ for (resTreeFile in str_sort(list.files('MrBayes', pattern = '.con.tre'), numeri
 
   # grab length of longest branch and number of that branch for each result tree
   bfMat[which(grepl(file, bfMat$file)),2] <- max(unlist(resTree$edge.length))
+  bfMat[which(grepl(file, bfMat$file)),3] <- var(unlist(resTree$edge.length))
 }
 
 
@@ -55,6 +56,7 @@ bfMat$BayesFactor <- apply(bfMat[,c(4:11)],1,mean)
 ############### Graph of BF vs tree length
 
 cor(bfMat$BayesFactor, bfMat$longBranch)
+cor(bfMat$BayesFactor, bfMat$lengthVar)
 linmod <- lm(longBranch ~ BayesFactor, data=bfMat) # is the longest branch length corr. with BF?
 # rsq <- summary(linmod)$r.squared
 # Fval <- summary(linmod)$fstatistic[1]
@@ -64,14 +66,19 @@ linmod <- lm(longBranch ~ BayesFactor, data=bfMat) # is the longest branch lengt
 
 ggplot(data = bfMat, aes(x=bfMat$BayesFactor, y=bfMat$longBranch)) +
   geom_point(alpha=0.5
-            # , aes(colour=avgLength)
+            , aes(colour=lengthVar)
              ) +
   geom_smooth(method = 'lm') +
-  scale_y_continuous(name = 'Length of longest branch') +
-  scale_x_continuous(name = 'log Marginal Likelihood') +
   theme_light()+
   theme(axis.text=element_text(size=14),
-        axis.title=element_text(size=16))
+        axis.title=element_text(size=16),
+        legend.position='bottom',
+        legend.key.width=unit(1.2,'cm'),
+        legend.text=element_text(size=12),
+        legend.title=element_text(size=15)) + 
+  scale_y_continuous(name = 'Length of longest branch') +
+  scale_x_continuous(name = 'log Marginal Likelihood') +
+  scale_colour_continuous(name = 'Branch length\nvariance')
 
 
 
@@ -79,8 +86,8 @@ ggplot(data = bfMat, aes(x=bfMat$BayesFactor, y=bfMat$longBranch)) +
 ggsave(filename = paste0('TreePerturb_longestBranch_', dataSet,'.pdf'),
         device = cairo_pdf, 
         path = paste0('~/Dropbox/MScR Thesis/Results/SimPlots'),
-        width = 4,
-        height = 4,
+        width = 5,
+        height = 5,
         units = 'in'
 )
 

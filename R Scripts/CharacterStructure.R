@@ -161,35 +161,11 @@ meanFdata$character <- factor(meanFdata$character, levels = meanFdata$character[
           ########    vs IC of the character
                   
 
-          
-# lm_eqn <- function(df, y, x){
-#         formula = as.formula(sprintf('%s ~ %s', y, x))
-#         m <- lm(formula, data=df);
-#         # formating the values into a summary string to print out
-#         # ~ give some space, but equal size and comma need to be quoted
-#         #eq <- atop(substitute(italic(target) == a + b %.% italic(input)*,~~italic(r)^2~"="~r2*","~~p~"="~italic(pvalue), 
-#         eq <- substitute(italic(r)^2~"="~r2*~"", 
-#                          list(target = y,
-#                               input = x,
-#                               r2 = format(summary(m)$r.squared, digits = 3),
-#                               # getting the pvalue is painful
-#                               pvalue = format(summary(m)$coefficients[2,'Pr(>|t|)'], digits=1)
-#                          )
-#         )
-#             as.character(as.expression(eq));                 
-#           }
-# lab <- lm_eqn(meanFdata, 'meanF','IC')
-#  
-m <-  lm(meanF ~ IC, meanFdata)
-rsq <- round(summary(m)$r.squared,2)
-pvalue <- format(summary(m)$coefficients[2,'Pr(>|t|)'], 1)
-
 ggplot(meanFdata, aes(x=IC, y=meanF)) +
-  geom_point(aes(size=se #nstates
+  geom_point(aes(size=se # or nstates
                  ),
              alpha=0.3) +
   geom_smooth(method = 'lm') +
-#  geom_text(x=47,y=3.2,label=paste0('r^2='rsq),color='red', size=6, parse=TRUE) +
   theme_light() +
   theme(legend.position='bottom',
         axis.text=element_text(size=14),
