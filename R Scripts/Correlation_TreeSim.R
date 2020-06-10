@@ -1,8 +1,7 @@
 #check for relationship between preferred tree, partitioning tree and reconstructed tree
 #make matrix of quartet similarities, run linear regressions
 #     check:      QS(reconstructed vs preferred tree) vs QS(partitioning vs preferred tree)
-#                 QS(reconstructed vs partitioning tree) vs BF
-#     matrix includes ML values and BFs in case I want to run more lin regs   
+#                 QS(reconstructed vs partitioning tree) vs BF  
 #written during corrections phase
 ################################################################################
 
@@ -112,28 +111,4 @@ scatter.smooth(x=bfMatLong$BayesFactor, y=bfMatLong$QS_start_to_result, main="st
 cor(x=bfMatLong$BayesFactor, y=bfMatLong$QS_start_to_result)
 
 nlcor(x=bfMatLong$BayesFactor, y=bfMatLong$QS_start_to_result, plt=T)
-
-# ################ Graph of tree similarity - LOESS smoothed evolution of resTree and startTree with BFs  
-# ggplot(data = bfMatLong, aes(x = bfMatLong$BayesFactor)) +
-#   geom_point(aes(y = bfMatLong$QS,alpha = 0.1,colour = bfMatLong$`start or result?`)) +
-#   geom_smooth(aes(y = bfMatLong$QS, colour = bfMatLong$`start or result?`)) +
-#   scale_y_continuous(name = 'Quartet Similarity to preferred tree [%]',
-#                      breaks = seq(floor_any(min(bfMatLong$QS),0.1), 1, 0.1),
-#                      limits = c(floor_any(min(bfMatLong$QS),0.1), 1)) +
-#   scale_x_continuous(name = 'ln Marginal Likelihood', 
-#                      breaks = seq(floor_any(min(bfMatLong$BayesFactor),2),ceiling(max(bfMatLong$BayesFactor)),2)) +
-#   scale_colour_discrete(name = 'Type of tree being compared to preferred tree', 
-#                         labels = c('Partitioning tree', 'Reconstructed tree')) +
-#   guides(alpha = FALSE) +
-#   theme_light() +
-#   theme(legend.position='bottom')
-# 
-# 
-# ggsave(filename = paste0('TreePerturb_start_result_opt_', dataSet,'.pdf'),
-#        device = cairo_pdf, 
-#        path = paste0('~/Dropbox/MScR Thesis/Results/SimPlots'),
-#        width = 7,
-#        height = 4,
-#        units = 'in'
-# )
 
